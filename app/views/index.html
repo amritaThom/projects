@@ -1,8 +1,120 @@
 <html>
   <head>
+  	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Customer Style -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
     <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
   </head>
+  <style>
+.colorgraph {
+  height: 7px;
+  border-top: 0;
+  background: #c4e17f;
+  border-radius: 5px;
+  background-image: -webkit-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+  background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+  background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+  background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+}
+
+</style>
   <body>
-    The best place to start is the "WelcomeController.py" file in app/controllers.
+    <div id ='container'>
+		<div class="row" style="margin-top:20px">
+   			 <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+       			 <h1> Login </h1>
+        		<hr class="colorgraph">
+        	<form action="/login" method="post">
+        		<div class='form-group'>
+       			<label for='email'> Email:<br>
+        		<input type="text" name="email" id="email"></label></div>
+        		<div class='form-group'>
+        		<label for='password'>Password:<br><input type="password" name="password" id="password"></label></div>
+        		<input class='btn btn-success'  type="submit" value="login">
+        	</form>
+        	{% with errors = get_flashed_messages(category_filter=["lg_email"]) %}
+       		{% if errors %}
+        	<span class="error">  {{ errors[0] }}</span>
+        	{% endif %}
+        	{% endwith %}
+    		</div>
+	</div>
+  <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+      <h1> Register </h1>
+      <hr class="colorgraph">
+    <form action="/users" method="post">
+        <div class='form-group'>
+            <label for='name'>Name:
+              {% with errors = get_flashed_messages(category_filter=["name"]) %}
+                {% if errors %}
+                  <span class="error">{{ errors[0] }}</span>
+                {% endif %}
+              {% endwith %}
+            </label>
+            <input class="form-control" type="text" name="name" id="name"/>
+        </div>
+        <div class='form-group'>
+            <label for='alias'>Alias:
+              {% with errors = get_flashed_messages(category_filter=["alias"]) %}
+                {% if errors %}
+                  <span class="error">{{ errors[0] }}</span>
+                {% endif %}
+              {% endwith %}
+            </label>
+            <input class="form-control" type="text" name="alias" id="alias"/>
+        </div>
+        <div class='form-group'>
+            <label for='email'>Email:
+              {% with errors = get_flashed_messages(category_filter=["email"]) %}
+                {% if errors %}
+                  <span class="error">{{ errors[0] }}</span>
+                {% endif %}
+              {% endwith %}
+            </label>
+            <input class="form-control" type="email" name="email" id='email'/>
+        </div>
+        <div class='form-group'>
+            <label for='password'>Password :
+              {% with errors = get_flashed_messages(category_filter=["password"]) %}
+                {% if errors %}
+                  <span class="error">{{ errors[0] }}</span>
+                {% endif %}
+              {% endwith %}
+            </label>
+            <input class="form-control" type="password" name="password" id='password'/>
+        </div>
+        <div class='form-group'>
+            <label for='passwordConfirm'>Confirm Password:
+              {% with errors = get_flashed_messages(category_filter=["passwordConfirm"]) %}
+                {% if errors %}
+                  <span class="error">{{ errors[0] }}</span>
+                {% endif %}
+              {% endwith %}
+            </label>
+            <input class="form-control" type="password" name="passwordConfirm" id='passwordConfirm'/>
+        </div>
+          <div class='form-group'>
+            <label for='date'>Date of Birth:
+            </label><br>
+            <input id="text" name="date" type="date" min="1000-01-01" max="2016-12-01" placeholder="YEAR-MM-DD"></div>
+        <div class='form-group'>
+          <input class='btn btn-success' type="submit" value="Register" role='button'/>
+        </div>
+      </form>
+  </div>
+  </div>
   </body>
 </html>
